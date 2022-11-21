@@ -15,6 +15,30 @@ class Student:
                 lecture.grades[course] = [grade]
         else:
             return 'Ошибка'
+
+    def __str__(self):
+        grades_count = 0
+        courses_in_progress_string = ', '.join(self.courses_in_progress)
+        finished_courses_string = ', '.join(self.finished_courses)
+        for k in self.grades:
+            grades_count += len(self.grades[k])
+        self.average_rating = sum(map(sum, self.grades.values())) / grades_count
+        res = f'Имя: {self.name}\n' \
+              f'Фамилия: {self.surname}\n' \
+              f'Средняя оценка за домашнее задание: {self.average_rating}\n' \
+              f'Курсы в процессе обучения: {courses_in_progress_string}\n' \
+              f'Завершенные курсы: {finished_courses_string}'
+        return res
+
+
+
+    def __lt__(self, someone):
+        if not isinstance(someone, Student):
+            print('Такое не сравниваю')
+            return
+        return self.average_rating < someone.average_rating
+
+
         
 class Mentor:
     def __init__(self, name, surname):
@@ -27,8 +51,21 @@ class Mentor:
 class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
-
         self.grades = {}
+
+    def __str__(self) -> str:
+        grades_count = 0
+        for k in self.grades:
+            grades_count += len(self.grades[k])
+        self.average_rating = sum(map(sum, self.grades.values())) / grades_count
+        res = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.average_rating}'
+        return res
+
+    def __lt__(self, someone):
+        if not isinstance(someone, Lecturer):
+            print('Такое не сравниваю')
+            return
+        return self.average_rating < someone.average_rating
 
     
 
@@ -63,3 +100,5 @@ best_student.rate_lecture(cool_lecturer, 'Python', 1)
  
 print(best_student.grades)
 print(cool_lecturer.grades)
+print(best_student)
+print(cool_lecturer)
