@@ -45,6 +45,7 @@ class Mentor:
         self.name = name
         self.surname = surname
         self.courses_attached = []
+
         
 
 
@@ -79,6 +80,10 @@ class Reviewer(Mentor):
                 student.grades[course] = [grade]
         else:
             return 'Ошибка'
+    def __str__(self) -> str:
+        res = f'Имя: {self.name}\nФамилия: {self.surname}\n'
+        return res
+
  
 best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python']
@@ -99,6 +104,11 @@ best_student.rate_lecture(cool_lecturer, 'Python', 1)
 
  
 print(best_student.grades)
+print('')
 print(cool_lecturer.grades)
+print('')
 print(best_student)
+print('')
 print(cool_lecturer)
+print('')
+print(cool_reviewer)
