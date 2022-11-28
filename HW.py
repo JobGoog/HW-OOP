@@ -17,15 +17,10 @@ class Student:
             return 'Ошибка'
 
     def __str__(self):
-        grades_count = 0
         courses_in_progress_string = ', '.join(self.courses_in_progress)
         finished_courses_string = ', '.join(self.finished_courses)
-        for k in self.grades:
-            grades_count += len(self.grades[k])
-        self.average_rating = sum(map(sum, self.grades.values())) / grades_count
         res = f'Имя: {self.name}\n' \
               f'Фамилия: {self.surname}\n' \
-              f'Средняя оценка за домашнее задание: {self.average_rating}\n' \
               f'Курсы в процессе обучения: {courses_in_progress_string}\n' \
               f'Завершенные курсы: {finished_courses_string}'
         return res
@@ -55,11 +50,7 @@ class Lecturer(Mentor):
         self.grades = {}
 
     def __str__(self) -> str:
-        grades_count = 0
-        for k in self.grades:
-            grades_count += len(self.grades[k])
-        self.average_rating = sum(map(sum, self.grades.values())) / grades_count
-        res = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.average_rating}'
+        res = f'Имя: {self.name}\nФамилия: {self.surname}\n'
         return res
 
     def __lt__(self, someone):
@@ -83,6 +74,24 @@ class Reviewer(Mentor):
     def __str__(self) -> str:
         res = f'Имя: {self.name}\nФамилия: {self.surname}\n'
         return res
+
+
+def Avg_grades_Student(self):
+    grades_count = 0
+    courses_in_progress_string = ', '.join(self.courses_in_progress)
+    finished_courses_string = ', '.join(self.finished_courses)
+    for k in self.grades:
+        grades_count += len(self.grades[k])
+    self.average_rating = sum(map(sum, self.grades.values())) / grades_count
+    print(f'Средняя оценка за домашнее задание: {self.average_rating}')
+
+def Avg_grades_Lecturer(self):
+    grades_count = 0
+    for k in self.grades:
+        grades_count += len(self.grades[k])
+    self.average_rating = sum(map(sum, self.grades.values())) / grades_count
+    print(f'Средняя оценка за лекции: {self.average_rating}')
+
 
  
 best_student = Student('Ruoy', 'Eman', 'your_gender')
@@ -112,3 +121,7 @@ print('')
 print(cool_lecturer)
 print('')
 print(cool_reviewer)
+
+Avg_grades_Student(best_student)
+
+Avg_grades_Lecturer(cool_lecturer)
